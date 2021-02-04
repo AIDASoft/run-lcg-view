@@ -1,4 +1,4 @@
-name: basic example
+name: dev3 example
 on: [push, pull_request]
 jobs:
   run-lcg:
@@ -9,7 +9,7 @@ jobs:
     - uses: aidasoft/run-lcg-view@main
       with:
         run_local_checkout: 'true'
-        release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
+        release-platform: "dev3/x86_64-centos7-gcc10-opt"
         run: |
           gcc --version
           which gcc

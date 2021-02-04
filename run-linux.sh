@@ -2,10 +2,10 @@
 
 set -e
 
-VIEW_PATH="/cvmfs/sft.cern.ch/lcg/views/"
+VIEW_PATH="/cvmfs/sft.cern.ch/lcg/views/${LCG_RELEASE_PLATFORM}"
 if [[ "${LCG_RELEASE}" == *"dev"* ]]
 then
-  VIEW_PATH="/cvmfs/sft-nightlies.cern.ch/lcg/views/"
+  VIEW_PATH="/cvmfs/sft-nightlies.cern.ch/lcg/views/${LCG_RELEASE}/latest/${LCG_PLATFORM}"
 fi
 
 echo "Starting docker image for ${SYSTEM}"
@@ -16,7 +16,7 @@ echo "#!/usr/bin/env bash
 
 set -e
 
-source ${VIEW_PATH}/${LCG_RELEASE_PLATFORM}/setup.sh
+source ${VIEW_PATH}/setup.sh
 
 ${RUN}
 " > ${GITHUB_WORKSPACE}/action_payload.sh
