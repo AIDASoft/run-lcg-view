@@ -2,10 +2,35 @@
 
 set -e
 
+echo "Checking if there is a working CVMFS mount"
+
+if [ ! -d "/cvmfs/sft.cern.ch/lcg/" ]
+then
+    echo "The directory /cvmfs/sft.cern.ch/lcg/ cannot be accessed!"
+    echo "Make sure you are using the cvmfs-contrib/github-action-cvmfs@v2 action"
+    exit 1
+fi
+
+if [ ! -d "/cvmfs/sft-nightlies.cern.ch/lcg/" ]
+then
+    echo "The directory /cvmfs/sft-nightlies.cern.ch/lcg/ cannot be accessed!"
+    echo "Make sure you are using the cvmfs-contrib/github-action-cvmfs@v2 action"
+    exit 1
+fi
+
+echo "CVMFS mount present"
+
 VIEW_PATH="/cvmfs/sft.cern.ch/lcg/views/${LCG_RELEASE_PLATFORM}"
 if [[ "${LCG_RELEASE}" == *"dev"* ]]
 then
   VIEW_PATH="/cvmfs/sft-nightlies.cern.ch/lcg/views/${LCG_RELEASE}/latest/${LCG_PLATFORM}"
+fi
+
+echo "Full view path is ${VIEW_PATH}"
+
+if [ ! -d "${VIEW_PATH}" ]; then
+    echo "Did not find a view under this path!"
+    exit 1
 fi
 
 echo "Starting docker image for ${SYSTEM}"
