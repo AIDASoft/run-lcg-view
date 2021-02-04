@@ -1,0 +1,44 @@
+name: 'Run code on top of a LCG view'
+description: 'Spawns appropriate docker image and executes user code in the environment of a specified LCG view'
+branding:
+  icon: 'blue'
+  color: 'play'
+inputs:
+  release:
+    description: 'Which LCG view release are you targeting (e.g. LCG_99)'
+    required: false
+    default: ''
+  platform:
+    description: 'Which LCG view platform are you targeting (e.g. x86_64-centos8-gcc10-opt)'
+    required: false
+    default: ''
+  release-platform:
+    description: 'Which LCG view release platform string are you targeting (e.g. LCG_99/x86_64-centos8-gcc10-opt)'
+    required: false
+    default: ''
+  run:
+    description: 'Code that you want to execute'
+    required: true
+    default: ''
+  run_local_checkout:
+    description: 'Run the local checkout of the action and not the main repo code'
+    required: false
+    default: 'false'
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
+          echo "WARNING running local checkout of the action !"
+          .  run-lcg-view.sh local
+        else
+          ${{ github.action_path }}/run-lcg-view.sh
+        fi
+      shell: bash
+      env:
+        THIS: ${{ github.action_path }}
+        LCG_RELEASE: ${{ inputs.release }}
+        LCG_PLATFORM: ${{ inputs.platform }}
+        LCG_RELEASE_PLATFORM: ${{ inputs.release-platform }}
+        RUN: ${{ inputs.run }}
