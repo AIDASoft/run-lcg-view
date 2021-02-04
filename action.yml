@@ -31,9 +31,9 @@ runs:
     - run: |
         if [ "${{ inputs.run_local_checkout }}" == "true" ]; then
           echo "WARNING running local checkout of the action !"
-          .  run-lcg-view.sh local
+          .  setup-lcg-view.sh local
         else
-          ${{ github.action_path }}/run-lcg-view.sh
+          ${{ github.action_path }}/setup-lcg-view.sh
         fi
       shell: bash
       env:
