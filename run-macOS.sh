@@ -22,9 +22,9 @@ if [ -z "${VIEW_PATH}" ]; then
 
   echo "CVMFS mount present"
 
-  VIEW_PATH="/cvmfs/sft.cern.ch/lcg/views/${LCG_RELEASE_PLATFORM}"
+  VIEW_PATH="/Users/Shared/cvmfs/sft.cern.ch/lcg/views/${LCG_RELEASE_PLATFORM}"
   if [[ "${LCG_RELEASE}" == *"dev"* ]]; then
-    VIEW_PATH="/cvmfs/sft-nightlies.cern.ch/lcg/views/${LCG_RELEASE}/latest/${LCG_PLATFORM}"
+    VIEW_PATH="/Users/Shared/cvmfs/sft-nightlies.cern.ch/lcg/views/${LCG_RELEASE}/latest/${LCG_PLATFORM}"
   fi
 fi
 
