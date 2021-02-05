@@ -31,8 +31,8 @@ fi
 echo "Full view path is ${VIEW_PATH}"
 
 if [ ! -d "${VIEW_PATH}" ]; then
-    echo "Did not find a view under this path!"
-    exit 1
+  echo "Did not find a view under this path!"
+  exit 1
 fi
 
 echo "#!/bin/zsh
