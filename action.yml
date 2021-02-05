@@ -20,6 +20,10 @@ inputs:
     description: 'Initialization/Setup script for a view that sets the environment (e.g. setup.sh)'
     required: false
     default: 'setup.sh'
+  view-path:
+    description: 'Path where the setup script for the view is location'
+    required: false
+    default: 'setup.sh'
   run:
     description: 'Code that you want to execute'
     required: true
@@ -45,5 +49,5 @@ runs:
         LCG_RELEASE: ${{ inputs.release }}
         LCG_PLATFORM: ${{ inputs.platform }}
         LCG_RELEASE_PLATFORM: ${{ inputs.release-platform }}
-        SETUP-SCRIPT: ${{ inputs.setup-script }}
+        SETUP_SCRIPT: ${{ inputs.setup-script }}
         RUN: ${{ inputs.run }}

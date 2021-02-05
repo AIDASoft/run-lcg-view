@@ -34,7 +34,7 @@ echo "#!/bin/zsh
 
 set -e
 
-source ${VIEW_PATH}/${SETUP-SCRIPT}
+source ${VIEW_PATH}/${SETUP_SCRIPT}
 
 ${RUN}
 " > ${GITHUB_WORKSPACE}/action_payload.sh
