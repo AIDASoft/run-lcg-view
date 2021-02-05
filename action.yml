@@ -4,24 +4,16 @@ branding:
   icon: 'blue'
   color: 'play'
 inputs:
-  release:
-    description: 'Which LCG view release are you targeting (e.g. LCG_99)'
-    required: false
-    default: ''
   platform:
     description: 'Which LCG view platform are you targeting (e.g. x86_64-centos8-gcc10-opt)'
     required: false
     default: ''
-  release-platform:
-    description: 'Which LCG view release platform string are you targeting (e.g. LCG_99/x86_64-centos8-gcc10-opt)'
+  release:
+    description: 'Which LCG view release are you targeting (e.g. LCG_99)'
     required: false
     default: ''
-  setup-script:
-    description: 'Initialization/Setup script for a view that sets the environment (e.g. setup.sh)'
-    required: false
-    default: 'setup.sh'
-  view-path:
-    description: 'Path where the setup script for the view is location'
+  release-platform:
+    description: 'Which LCG view release platform string are you targeting (e.g. LCG_99/x86_64-centos8-gcc10-opt)'
     required: false
     default: ''
   run:
@@ -32,6 +24,14 @@ inputs:
     description: 'Run the local checkout of the action and not the main repo code'
     required: false
     default: 'false'
+  setup-script:
+    description: 'Initialization/Setup script for a view that sets the environment (e.g. setup.sh)'
+    required: false
+    default: 'setup.sh'
+  view-path:
+    description: 'Path where the setup script for the view is location'
+    required: false
+    default: ''
 
 runs:
   using: "composite"
@@ -47,8 +47,8 @@ runs:
       env:
         THIS: ${{ github.action_path }}
         LCG_RELEASE: ${{ inputs.release }}
-        LCG_PLATFORM: ${{ inputs.platform }}
         LCG_RELEASE_PLATFORM: ${{ inputs.release-platform }}
-        SETUP_SCRIPT: ${{ inputs.setup-script }}
+        LCG_PLATFORM: ${{ inputs.platform }}
         RUN: ${{ inputs.run }}
+        SETUP_SCRIPT: ${{ inputs.setup-script }}
         VIEW_PATH: ${{ inputs.view-path }}
