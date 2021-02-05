@@ -66,9 +66,11 @@ Beware that because the runner cannot be rebooted in the macOS case, the reposit
 ## Parameters
 The following parameters are supported:
  - `release`: LCG view release are you targeting (e.g. `LCG_99`)
- - `platform`: LCG view platform are you targeting (e.g. `x86_64-centos8-gcc10-opt`)
  - `release-platform`:LCG view release platform string are you targeting (e.g. `LCG_99/x86_64-centos8-gcc10-opt`)
+ - `platform`: LCG view platform are you targeting (e.g. `x86_64-centos8-gcc10-opt`)
  - `run`: They payload code you want to execute on-top of the view
+ - `setup-script`: Initialization/Setup script for a view that sets the environment (e.g. `setup.sh`)
+ - `view-path`: Path where the setup script for the custom view is location. By specifying this variable the auto-resolving of the view based on `release` and `platform` is disabled. Furthermore the full path has to contain the architecture of the build in the form `/dir1/dir2/x86_64-{arch}-gcc../dir4/dir5`. The system will try to resolve the docker container equal to the string `{arch}` (the string after `x86_64-`).
 
 Please be aware that you must use the combination of parameters `release` and `platform` together or use just the variable `release-platform` alone. This two options are give to enable the user more flexifility to form their workflow with matrix expressions.
 
