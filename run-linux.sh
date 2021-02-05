@@ -18,6 +18,13 @@ then
     exit 1
 fi
 
+if [ ! -d "/cvmfs/geant4.cern.ch/share/" ]
+then
+    echo "The directory /cvmfs/geant4.cern.ch/share/ cannot be accessed!"
+    echo "Make sure you are using the cvmfs-contrib/github-action-cvmfs@v2 action"
+    exit 1
+fi
+
 echo "CVMFS mount present"
 
 VIEW_PATH="/cvmfs/sft.cern.ch/lcg/views/${LCG_RELEASE_PLATFORM}"
