@@ -1,4 +1,4 @@
-name: basic example
+name: linux
 on: [push, pull_request]
 jobs:
   run-lcg:

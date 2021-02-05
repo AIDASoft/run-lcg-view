@@ -1,4 +1,4 @@
-name: macOS example
+name: macOS
 on: [push, pull_request]
 jobs:
   run-lcg:
@@ -8,7 +8,6 @@ jobs:
     - uses: cvmfs-contrib/github-action-cvmfs@v2
       with:
         cvmfs_repositories: 'sft.cern.ch,geant4.cern.ch'
-        cvmfs_macos_pkg_location: 'https://ecsft.cern.ch/dist/cvmfs/cvmfs-2.7.5/cvmfs-2.7.5.pkg'
     - uses: aidasoft/run-lcg-view@main
       with:
         run_local_checkout: 'true'
