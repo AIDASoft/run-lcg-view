@@ -65,9 +65,9 @@ Beware that because the runner cannot be rebooted in the macOS case, the reposit
 
 ## Parameters
 The following parameters are supported:
- - `release`: LCG view release are you targeting (e.g. LCG_99)
- - `platform`: LCG view platform are you targeting (e.g. x86_64-centos8-gcc10-opt)
- - `release-platform`:LCG view release platform string are you targeting (e.g. LCG_99/x86_64-centos8-gcc10-opt)
+ - `release`: LCG view release are you targeting (e.g. `LCG_99`)
+ - `platform`: LCG view platform are you targeting (e.g. `x86_64-centos8-gcc10-opt`)
+ - `release-platform`:LCG view release platform string are you targeting (e.g. `LCG_99/x86_64-centos8-gcc10-opt`)
  - `run`: They payload code you want to execute on-top of the view
 
 Please be aware that you must use the combination of parameters `release` and `platform` together or use just the variable `release-platform` alone. This two options are give to enable the user more flexifility to form their workflow with matrix expressions.
