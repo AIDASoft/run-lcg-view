@@ -16,6 +16,10 @@ inputs:
     description: 'Which LCG view release platform string are you targeting (e.g. LCG_99/x86_64-centos8-gcc10-opt)'
     required: false
     default: ''
+  setup-script:
+    description: 'Initialization/Setup script for a view that sets the environment (e.g. setup.sh)'
+    required: false
+    default: 'setup.sh'
   run:
     description: 'Code that you want to execute'
     required: true
@@ -41,4 +45,5 @@ runs:
         LCG_RELEASE: ${{ inputs.release }}
         LCG_PLATFORM: ${{ inputs.platform }}
         LCG_RELEASE_PLATFORM: ${{ inputs.release-platform }}
+        SETUP-SCRIPT: ${{ inputs.setup-script }}
         RUN: ${{ inputs.run }}

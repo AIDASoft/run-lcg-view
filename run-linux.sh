@@ -48,7 +48,7 @@ echo "#!/usr/bin/env bash
 
 set -e
 
-source ${VIEW_PATH}/setup.sh
+source ${VIEW_PATH}/${SETUP-SCRIPT}
 
 ${RUN}
 " > ${GITHUB_WORKSPACE}/action_payload.sh
