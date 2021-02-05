@@ -51,4 +51,4 @@ runs:
         LCG_RELEASE_PLATFORM: ${{ inputs.release-platform }}
         SETUP_SCRIPT: ${{ inputs.setup-script }}
         RUN: ${{ inputs.run }}
-        VIEW_PATH: ${{ inputs.view-path }} 
+        VIEW_PATH: ${{ inputs.view-path }}
