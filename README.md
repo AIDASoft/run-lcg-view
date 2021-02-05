@@ -6,7 +6,7 @@ This GitHub Action executes user payload code inside a LCG view environment, spe
 ## Instructions
 
 # Prerequisites
-This action depends on the user to call the companion action `uses: cvmfs-contrib/github-action-cvmfs@v2` before using `uses: aidasoft/run-lcg-view@v1`, which will install CVMFS on the node. GitHub Actions currently do not support to call from within `run-lcg-view` the action `github-action-cvmfs`, this needs to be done explicitly by the user.
+This action depends on the user to call the companion action `uses: cvmfs-contrib/github-action-cvmfs@v2` before using `uses: aidasoft/run-lcg-view@v1`, which will install CVMFS on the node. GitHub Actions currently do not support calling the action `github-action-cvmfs` from within `run-lcg-view`, this needs to be done explicitly by the user.
 
 # Example
 
@@ -27,7 +27,7 @@ jobs:
           gcc --version
           which gcc
 ```
-In this case the action will automatically resolve the correct docker image (in this case `centos7`) and download it from the GitHub Container Registry. The `Dockerfile`s for the supported images can be found in the [AIDASoft/management](https://github.com/AIDASoft/management) repository.
+In this case the action will automatically resolve the correct docker image (in this case `centos7`) and download it from the GitHub Container Registry. The `Dockerfile` for the supported images can be found in the [AIDASoft/management](https://github.com/AIDASoft/management) repository.
 
 The action mounts the checkout directory into the mentioned container and wraps the variable `run` in the script:
 
@@ -41,10 +41,10 @@ source ${VIEW_PATH}/setup.sh
 ${RUN} # the multi-line variable specified in the action under run: |
 ```
 
-Which is executed in the container and thus giving the user a easy and direct access run arbitrary code on top of LCG views.
+which is executed in the container and thus giving the user an easy and direct access to run arbitrary code on top of LCG views.
 
 
-The Action also works with runners of type `macos-latest`, however in this case it is necessary to specify the repositories you want to mount (via the variable `cvmfs_repositories`), as there is not auto mount for macOS. A minimal example of usage on `macos-latest` is:
+The Action also works with runners of type `macos-latest`, however in this case it is necessary to specify the repositories you want to mount (via the variable `cvmfs_repositories`), as there is no auto mount for macOS. A minimal example of usage on `macos-latest` is:
 ```yaml
 jobs:
   run-lcg:
@@ -65,14 +65,14 @@ Beware that because the runner cannot be rebooted in the macOS case, the reposit
 
 ## Parameters
 The following parameters are supported:
- - `release`: LCG view release are you targeting (e.g. `LCG_99`)
- - `release-platform`:LCG view release platform string are you targeting (e.g. `LCG_99/x86_64-centos8-gcc10-opt`)
- - `platform`: LCG view platform are you targeting (e.g. `x86_64-centos8-gcc10-opt`)
- - `run`: They payload code you want to execute on-top of the view
+ - `release`: LCG view release you are targeting (e.g. `LCG_99`)
+ - `release-platform`:LCG view release platform string you are targeting (e.g. `LCG_99/x86_64-centos8-gcc10-opt`)
+ - `platform`: LCG view platform you are targeting (e.g. `x86_64-centos8-gcc10-opt`)
+ - `run`: They payload code you want to execute on top of the view
  - `setup-script`: Initialization/Setup script for a view that sets the environment (e.g. `setup.sh`)
  - `view-path`: Path where the setup script for the custom view is location. By specifying this variable the auto-resolving of the view based on `release` and `platform` is disabled. Furthermore the full path has to contain the architecture of the build in the form `/dir1/dir2/x86_64-{arch}-gcc../dir4/dir5`. The system will try to resolve the docker container equal to the string `{arch}` (the string after `x86_64-`).
 
-Please be aware that you must use the combination of parameters `release` and `platform` together or use just the variable `release-platform` alone. This two options are give to enable the user more flexifility to form their workflow with matrix expressions.
+Please be aware that you must use the combination of parameters `release` and `platform` together or use just the variable `release-platform` alone. These two options are given to enable more flexibility for the user to form their workflow with matrix expressions.
 
 ## Minimal Example
 
@@ -80,4 +80,4 @@ There are minimal examples, which are also workflows in this repository in the s
 
 ## Limitations
 
-The action will always resolve the correct image to execute your code on top the requested view, therefore you must always set the top level GitHub Action variable `runs-on: ubuntu-latest`. Hower this is not the case if you want to execute on macOS, there you have to set this variable to `runs-on: macos-latest`.
+The action will always resolve the correct image to execute your code on top the requested view, therefore you must always set the top level GitHub Action variable `runs-on: ubuntu-latest`. However this is not the case if you want to execute on macOS, there you have to set this variable to `runs-on: macos-latest`.
