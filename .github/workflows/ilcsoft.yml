@@ -9,9 +9,8 @@ jobs:
     - uses: aidasoft/run-lcg-view@main
       with:
         run_local_checkout: 'true'
-        release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
         view-path: "/cvmfs/clicdp.cern.ch/iLCSoft/builds/nightly/x86_64-slc6-gcc62-opt"
         setup-script: "init_ilcsoft.sh"
         run: |
-          gcc --version
-          which gcc
+          which ddsim
+          ddsim --help

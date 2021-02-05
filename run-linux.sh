@@ -32,8 +32,6 @@ if [ -z "${VIEW_PATH}" ]; then
   if [[ "${LCG_RELEASE}" == *"dev"* ]]; then
     VIEW_PATH="/cvmfs/sft-nightlies.cern.ch/lcg/views/${LCG_RELEASE}/latest/${LCG_PLATFORM}"
   fi
-else
-  export SYSTEM=$(echo "${VIEW_PATH}" | awk -F'x86_64-' '{print $2}' | cut -d '-' -f 1)
 fi
 
 echo "Full view path is ${VIEW_PATH}"
