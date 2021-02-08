@@ -56,4 +56,4 @@ echo "####################################################################"
 echo "###################### Executing user payload ######################"
 echo "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
 
-docker exec view_worker /bin/bash -c "${GITHUB_WORKSPACE}/action_payload.sh"
+docker exec view_worker /bin/bash -c "cd ${GITHUB_WORKSPACE}; ./action_payload.sh"

@@ -46,6 +46,7 @@ echo "#!/bin/zsh
 set -e
 
 source ${VIEW_PATH}/${SETUP_SCRIPT}
+cd ${GITHUB_WORKSPACE}
 
 ${RUN}
 " > ${GITHUB_WORKSPACE}/action_payload.sh
@@ -55,4 +56,5 @@ echo "####################################################################"
 echo "###################### Executing user payload ######################"
 echo "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
 
-${GITHUB_WORKSPACE}/action_payload.sh
+cd ${GITHUB_WORKSPACE}
+./action_payload.sh
