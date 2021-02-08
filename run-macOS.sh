@@ -28,6 +28,12 @@ if [ -z "${VIEW_PATH}" ]; then
   fi
 fi
 
+echo "Installing view prerequisites:"
+brew install ninja
+brew install gfortran
+brew install --cask xquartz
+echo "Installation done."
+
 echo "Full view path is ${VIEW_PATH}"
 
 if [ ! -d "${VIEW_PATH}" ]; then
