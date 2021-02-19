@@ -1,0 +1,20 @@
+name: coverity
+on: [push, pull_request]
+jobs:
+  run-coverity:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cvmfs-contrib/github-action-cvmfs@v2
+    - uses: aidasoft/run-lcg-view@main
+      with:
+        run_local_checkout: 'true'
+        coverity-container: 'ghcr.io/aidasoft/coverity:latest'
+        coverity-cmake-command: 'cmake ..'
+        coverity-project: 'AIDASoft%2Fpodio'
+        coverity-project-token: ${{ secrets.PODIO_COVERITY_TOKEN  }}
+        github-pat: ${{ secrets.READ_COVERITY_IMAGE  }}
+        release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
+        run: |
+          gcc --version
+          which gcc
