@@ -30,10 +30,20 @@ if [ "$(uname)" == "Linux" ]; then
     echo "You are trying to use a mac view on a linux system, this is not possible."
     exit 1
   fi
-  if [ "$1" == "local" ]; then
-    . run-linux.sh
+  if [ ! -z "${COVERITY_PROJECT_TOKEN}" ]; then
+    if [ "$1" == "local" ]; then
+      if
+      . run-coverity.sh
+    else
+      $THIS/run-coverity.sh
+    fi
   else
-    $THIS/run-linux.sh
+    if [ "$1" == "local" ]; then
+      if
+      . run-linux.sh
+    else
+      $THIS/run-linux.sh
+    fi
   fi
 fi
 

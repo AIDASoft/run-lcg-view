@@ -4,6 +4,26 @@ branding:
   icon: 'play'
   color: 'blue'
 inputs:
+  coverity-container:
+    description: 'Location of container that has coverity scan installed'
+    required: false
+    default: 'ghcr.io/aidasoft/coverity:latest'
+  coverity-cmake-command:
+    description: 'CMake command for bulding your project with Coverity'
+    required: false
+    default: ''
+  coverity-project:
+    description: 'Coverity project name in URL encoding ( / -> %2F e.g. AIDASoft%2FDD4hep)'
+    required: false
+    default: ''
+  coverity-project-token:
+    description: 'Coverity project token to interact with the coverity server'
+    required: false
+    default: ''
+  github-pat:
+    description: 'GitHub Personal Access Token for reading the Coverity image as it cannot be public'
+    required: false
+    default: ''
   platform:
     description: 'LCG view platform you are targeting (e.g. x86_64-centos8-gcc10-opt)'
     required: false
@@ -46,6 +66,11 @@ runs:
       shell: bash
       env:
         THIS: ${{ github.action_path }}
+        COVERITY_CONTAINER : ${{ inputs.coverity-container }}
+        COVERITY_CMAKE_COMMAND : ${{ inputs.coverity-cmake-command }}
+        COVERITY_PROJECT: ${{ inputs.coverity-project }}
+        COVERITY_PROJECT_TOKEN: ${{ inputs.coverity-project-token }}
+        GITHUB_PAT: ${{ inputs.github-pat }}
         LCG_RELEASE: ${{ inputs.release }}
         LCG_RELEASE_PLATFORM: ${{ inputs.release-platform }}
         LCG_PLATFORM: ${{ inputs.platform }}
