@@ -6,11 +6,11 @@ This GitHub Action executes user payload code inside a LCG view environment, spe
 ## Instructions
 
 ### Prerequisites
-This action depends on the user to call the companion action `uses: cvmfs-contrib/github-action-cvmfs@v2` before using `uses: aidasoft/run-lcg-view@v1`, which will install CVMFS on the node. GitHub Actions currently do not support calling the action `github-action-cvmfs` from within `run-lcg-view`, this needs to be done explicitly by the user.
+This action depends on the user to call the companion action `uses: cvmfs-contrib/github-action-cvmfs@v2` before using `uses: aidasoft/run-lcg-view@v2`, which will install CVMFS on the node. GitHub Actions currently do not support calling the action `github-action-cvmfs` from within `run-lcg-view`, this needs to be done explicitly by the user.
 
 ### Example
 
-You can use this GitHub Action in a workflow in your own repository with `uses: aidasoft/run-lcg-view@v1`.
+You can use this GitHub Action in a workflow in your own repository with `uses: aidasoft/run-lcg-view@v2`.
 
 A minimal job example for GitHub-hosted runners of type `ubuntu-latest`:
 ```yaml
@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: cvmfs-contrib/github-action-cvmfs@v2
-    - uses: aidasoft/run-lcg-view@v1
+    - uses: aidasoft/run-lcg-view@v2
       with:
         release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
         run: |
@@ -54,7 +54,7 @@ jobs:
     - uses: cvmfs-contrib/github-action-cvmfs@v2
       with:
         cvmfs_repositories: 'sft.cern.ch,geant4.cern.ch'
-    - uses: aidasoft/run-lcg-view@v1
+    - uses: aidasoft/run-lcg-view@v2
       with:
         release-platform: "LCG_99/x86_64-mac1015-clang120-opt"
         run: |
