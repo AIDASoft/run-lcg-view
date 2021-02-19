@@ -32,14 +32,12 @@ if [ "$(uname)" == "Linux" ]; then
   fi
   if [ ! -z "${COVERITY_PROJECT_TOKEN}" ]; then
     if [ "$1" == "local" ]; then
-      if
       . run-coverity.sh
     else
       $THIS/run-coverity.sh
     fi
   else
     if [ "$1" == "local" ]; then
-      if
       . run-linux.sh
     else
       $THIS/run-linux.sh
