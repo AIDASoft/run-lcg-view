@@ -100,11 +100,13 @@ echo "Start uploading compilation units for analysis"
 
 docker cp view_worker:/myproject.tgz myproject.tgz
 
-curl --form token=${COVERITY_PROJECT_TOKEN} \
+if [ "$1" != "local" ]; then
+  curl --form token=${COVERITY_PROJECT_TOKEN} \
      --form email=noreply@cern.ch \
      --form file=@myproject.tgz \
      --form version="master" \
      --form description="Scan by run-lcg-view GitHub Action" \
      https://scan.coverity.com/builds?project=${COVERITY_PROJECT}
-
-echo "Successfully uploaded tarball to Coverity server"
+else
+  echo "Not submitting to server only test run"
+fi
