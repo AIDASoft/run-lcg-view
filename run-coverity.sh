@@ -82,7 +82,7 @@ mkdir build
 cd build
 ${COVERITY_CMAKE_COMMAND}
 cov-build --dir cov-int make -j4
-tar czvf myproject.tgz cov-int
+tar czvf /myproject.tgz cov-int
 " > ${GITHUB_WORKSPACE}/coverity_scan.sh
 chmod a+x ${GITHUB_WORKSPACE}/coverity_scan.sh
 
@@ -98,7 +98,7 @@ echo "#####################################################################"
 
 echo "Start uploading compilation units for analysis"
 
-docker cp view_worker:${GITHUB_WORKSPACE}/build/myproject.tgz myproject.tgz
+docker cp view_worker:/myproject.tgz myproject.tgz
 
 curl --form token=${COVERITY_PROJECT_TOKEN} \
      --form email=noreply@cern.ch \
