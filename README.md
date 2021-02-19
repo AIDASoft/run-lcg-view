@@ -1,5 +1,5 @@
 # GitHub Action: aidasoft/run-lcg-view
-![linux](https://github.com/AIDASoft/run-lcg-view/workflows/linux/badge.svg)![macOS](https://github.com/AIDASoft/run-lcg-view/workflows/macOS/badge.svg)![dev3](https://github.com/AIDASoft/run-lcg-view/workflows/dev3/badge.svg)
+![linux](https://github.com/AIDASoft/run-lcg-view/workflows/linux/badge.svg)![macOS](https://github.com/AIDASoft/run-lcg-view/workflows/macOS/badge.svg)![dev3](https://github.com/AIDASoft/run-lcg-view/workflows/dev3/badge.svg)[![coverity](https://github.com/AIDASoft/run-lcg-view/actions/workflows/coverity.yml/badge.svg)](https://github.com/AIDASoft/run-lcg-view/actions/workflows/coverity.yml)
 
 This GitHub Action executes user payload code inside a LCG view environment, specified by the user.
 
