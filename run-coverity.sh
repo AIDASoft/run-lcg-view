@@ -98,9 +98,11 @@ echo "#####################################################################"
 
 echo "Start uploading compilation units for analysis"
 
+docker cp view_worker:${GITHUB_WORKSPACE}/build/myproject.tgz myproject.tgz
+
 curl --form token=${COVERITY_PROJECT_TOKEN} \
      --form email=noreply@cern.ch \
-     --form file=@${GITHUB_WORKSPACE}/build/myproject.tgz \
+     --form file=@myproject.tgz \
      --form version="master" \
      --form description="Scan by run-lcg-view GitHub Action" \
      https://scan.coverity.com/builds?project=${COVERITY_PROJECT}
