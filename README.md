@@ -78,6 +78,10 @@ Please be aware that you must use the combination of parameters `release` and `p
 
 There are minimal examples, which are also workflows in this repository in the subfolder [.github/workflows/](https://github.com/AIDASoft/run-lcg-view/tree/main/.github/workflows).
 
+## Limitations
+
+The action will always resolve the correct image to execute your code on top the requested view, therefore you must always set the top level GitHub Action variable `runs-on: ubuntu-latest`. However this is not the case if you want to execute on macOS, there you have to set this variable to `runs-on: macos-latest`.
+
 ## Coverity Scan extension
 ### Prerequisites
 It is also possible to automatize [Coverity Scan](https://scan.coverity.com/) with this action. There are several steps that you need to do before being able to use this specific feature of this action:
@@ -130,9 +134,5 @@ The following parameters are supported:
  - ` coverity-container`: Location of container that has Coverity Scan installed (default: `ghcr.io/aidasoft/coverity:latest` but not public)
 - `coverity-cmake-command`:  CMake command for building your project, assuming in source build.
 - `coverity-project`: Coverity project name in URL encoding ( `/` -> `%2F` e.g. `AIDASoft%2FDD4hep`)'. Name under which your project is registered with the Coverity Scan server.
-- `coverity-project-toke`: Coverity project token to interact with the server
+- `coverity-project-token`: Coverity project token to interact with the server
 - `github-pat`: GitHub Personal Access Token for reading your custom image given under `coverity-container`
-
-## Limitations
-
-The action will always resolve the correct image to execute your code on top the requested view, therefore you must always set the top level GitHub Action variable `runs-on: ubuntu-latest`. However this is not the case if you want to execute on macOS, there you have to set this variable to `runs-on: macos-latest`.
