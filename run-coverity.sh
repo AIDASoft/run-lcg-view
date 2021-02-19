@@ -100,7 +100,7 @@ echo "Start uploading compilation units for analysis"
 
 curl --form token=${COVERITY_PROJECT_TOKEN} \
      --form email=noreply@cern.ch \
-     --form file=@tarball/${GITHUB_WORKSPACE}/build/myproject.tgz \
+     --form file=@${GITHUB_WORKSPACE}/build/myproject.tgz \
      --form version="master" \
      --form description="Scan by run-lcg-view GitHub Action" \
      https://scan.coverity.com/builds?project=${COVERITY_PROJECT}
