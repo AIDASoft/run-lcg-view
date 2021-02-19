@@ -77,8 +77,12 @@ echo "#!/usr/bin/env bash
 set -e
 
 source ${VIEW_PATH}/${SETUP_SCRIPT}
-
 ${RUN}
+mkdir build
+cd build
+${COVERITY_CMAKE_COMMAND}
+cov-build --dir cov-int make -j4
+tar czvf myproject.tgz cov-int
 " > ${GITHUB_WORKSPACE}/coverity_scan.sh
 chmod a+x ${GITHUB_WORKSPACE}/coverity_scan.sh
 
@@ -86,4 +90,4 @@ echo "####################################################################"
 echo "###################### Executing user payload ######################"
 echo "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
 
-# docker exec view_worker /bin/bash -c "cd ${GITHUB_WORKSPACE}; ./action_payload.sh"
+docker exec view_worker /bin/bash -c "cd ${GITHUB_WORKSPACE}; ./coverity_scan.sh"

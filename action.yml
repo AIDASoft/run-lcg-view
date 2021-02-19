@@ -9,7 +9,7 @@ inputs:
     required: false
     default: 'ghcr.io/aidasoft/coverity:latest'
   coverity-cmake-command:
-    description: 'CMake command for bulding your project with Coverity'
+    description: 'CMake command for bulding your project with Coverity (assuming in source build)'
     required: false
     default: ''
   coverity-project:
@@ -38,7 +38,7 @@ inputs:
     default: ''
   run:
     description: 'They payload code you want to execute on top of the view'
-    required: true
+    required: false
     default: ''
   run_local_checkout:
     description: 'Run the local checkout of the action and not the main repo code'
@@ -71,6 +71,7 @@ runs:
         COVERITY_PROJECT: ${{ inputs.coverity-project }}
         COVERITY_PROJECT_TOKEN: ${{ inputs.coverity-project-token }}
         GITHUB_PAT: ${{ inputs.github-pat }}
+        GITHUB_ACTOR: ${{ github.actor }}
         LCG_RELEASE: ${{ inputs.release }}
         LCG_RELEASE_PLATFORM: ${{ inputs.release-platform }}
         LCG_PLATFORM: ${{ inputs.platform }}
