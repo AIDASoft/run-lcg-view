@@ -5,11 +5,11 @@ branding:
   color: 'blue'
 inputs:
   coverity-container:
-    description: 'Location of container that has coverity scan installed'
+    description: 'Location of container that has Coverity Scan installed (default: `ghcr.io/aidasoft/coverity:latest` but not public)'
     required: false
     default: 'ghcr.io/aidasoft/coverity:latest'
   coverity-cmake-command:
-    description: 'CMake command for bulding your project with Coverity (assuming in source build)'
+    description: 'CMake command for building your project, assuming in source build'
     required: false
     default: ''
   coverity-project:
