@@ -36,6 +36,10 @@ inputs:
     description: 'LCG view release platform string you are targeting (e.g. LCG_99/x86_64-centos8-gcc10-opt'
     required: false
     default: ''
+  unpacked:
+    description: 'Use image from /cvmfs/unpacked.cern.ch with Singularity, or if false use GitHub Container Registry with Docker'
+    required: false
+    default: 'true'
   run:
     description: 'They payload code you want to execute on top of the view'
     required: false
@@ -75,6 +79,7 @@ runs:
         LCG_RELEASE: ${{ inputs.release }}
         LCG_RELEASE_PLATFORM: ${{ inputs.release-platform }}
         LCG_PLATFORM: ${{ inputs.platform }}
+        UNPACKED: ${{ inputs.unpacked }}
         RUN: ${{ inputs.run }}
         SETUP_SCRIPT: ${{ inputs.setup-script }}
         VIEW_PATH: ${{ inputs.view-path }}

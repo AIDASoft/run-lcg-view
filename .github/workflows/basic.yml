@@ -1,7 +1,7 @@
 name: linux
 on: [push, pull_request]
 jobs:
-  run-lcg:
+  singularity:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -9,6 +9,20 @@ jobs:
     - uses: aidasoft/run-lcg-view@main
       with:
         run_local_checkout: 'true'
+        unpacked: 'true'
+        release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
+        run: |
+          gcc --version
+          which gcc
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cvmfs-contrib/github-action-cvmfs@v2
+    - uses: aidasoft/run-lcg-view@main
+      with:
+        run_local_checkout: 'true'
+        unpacked: 'false'
         release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
         run: |
           gcc --version
