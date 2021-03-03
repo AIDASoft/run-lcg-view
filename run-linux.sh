@@ -38,9 +38,13 @@ if [ ! -d "${VIEW_PATH}" ]; then
   exit 1
 fi
 
-echo "Starting docker image for ${SYSTEM}"
-docker run -it --name view_worker -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} -v /cvmfs:/cvmfs:shared -d ghcr.io/aidasoft/${SYSTEM}:latest /bin/bash
-echo "Docker image ready for ${SYSTEM}"
+echo "Install Singularity"
+conda install --quiet --yes -c conda-forge singularity > /dev/null 2>&1
+eval "$(conda shell.bash hook)"
+
+echo "Starting Singularity image for ${SYSTEM}"
+singularity instance start --bind /cvmfs --bind ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} /cvmfs/unpacked.cern.ch/ghcr.io/aidasoft/${SYSTEM}:latest view_worker
+echo "Singularity image ready for ${SYSTEM}"
 
 echo "#!/usr/bin/env bash
 
@@ -56,4 +60,4 @@ echo "####################################################################"
 echo "###################### Executing user payload ######################"
 echo "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
 
-docker exec view_worker /bin/bash -c "cd ${GITHUB_WORKSPACE}; ./action_payload.sh"
+singularity exec instance://view_worker /bin/bash -c "cd ${GITHUB_WORKSPACE}; ./action_payload.sh"
