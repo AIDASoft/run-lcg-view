@@ -55,7 +55,6 @@ if [ ${UNPACKED} == "true" ]; then
 
   echo "Starting Singularity image for ${SYSTEM} from /cvmfs/unpacked.cern.ch"
   singularity instance start --bind /cvmfs --bind ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} /cvmfs/unpacked.cern.ch/ghcr.io/aidasoft/${SYSTEM}:latest view_worker
-  echo "Singularity image ready for ${SYSTEM}"
 else
   echo "Starting docker image for ${SYSTEM}"
   docker run -it --name view_worker -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} -v /cvmfs:/cvmfs:shared -d ghcr.io/aidasoft/${SYSTEM}:latest /bin/bash
