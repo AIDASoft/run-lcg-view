@@ -39,7 +39,7 @@ inputs:
   unpacked:
     description: 'Use image from /cvmfs/unpacked.cern.ch with Singularity, or if false use GitHub Container Registry with Docker'
     required: false
-    default: 'true'
+    default: 'false'
   run:
     description: 'They payload code you want to execute on top of the view'
     required: false
