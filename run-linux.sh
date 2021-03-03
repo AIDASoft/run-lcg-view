@@ -47,7 +47,7 @@ singularity instance start --bind /cvmfs --bind ${GITHUB_WORKSPACE}:${GITHUB_WOR
 echo "Singularity image ready for ${SYSTEM}"
 
 echo "#!/usr/bin/env bash
-
+export LC_ALL=C
 set -e
 
 source ${VIEW_PATH}/${SETUP_SCRIPT}
