@@ -22,7 +22,11 @@ if [ -z "${VIEW_PATH}" ]; then
   export LCG_PLATFORM=$(echo "${LCG_RELEASE_PLATFORM}" | cut -d '/' -f 2)
   export SYSTEM=$(echo "${LCG_RELEASE_PLATFORM}" | cut -d '/' -f 2 | cut -d '-' -f 2)
 else
-  export SYSTEM=$(echo "${VIEW_PATH}" | awk -F'x86_64-' '{print $2}' | cut -d '-' -f 1)
+  if [ "${CONTAINER}" == "auto" ]; then
+    export SYSTEM=$(echo "${VIEW_PATH}" | awk -F'x86_64-' '{print $2}' | cut -d '-' -f 1)
+  else
+    export SYSTEM=${CONTAINER}
+  fi
 fi
 
 if [ "$(uname)" == "Linux" ]; then

@@ -4,6 +4,10 @@ branding:
   icon: 'play'
   color: 'blue'
 inputs:
+  container:
+    description: 'Which container to use as base to setup a view. By default the container is infered from `view-path` (default: `auto`)'
+    required: false
+    default: 'auto'
   coverity-container:
     description: 'Location of container that has Coverity Scan installed (default: `ghcr.io/aidasoft/coverity:latest` but not public)'
     required: false
@@ -70,6 +74,7 @@ runs:
       shell: bash
       env:
         THIS: ${{ github.action_path }}
+        CONTAINER: ${{ inputs.container }}
         COVERITY_CONTAINER : ${{ inputs.coverity-container }}
         COVERITY_CMAKE_COMMAND : ${{ inputs.coverity-cmake-command }}
         COVERITY_PROJECT: ${{ inputs.coverity-project }}
