@@ -65,6 +65,7 @@ Beware that because the runner cannot be rebooted in the macOS case, the reposit
 
 ### Parameters
 The following parameters are supported:
+ - `container`: Which container to use as base to setup a view. By default the container is inferred from `view-path` (default: `auto`)
  - `platform`: LCG view platform you are targeting (e.g. `x86_64-centos8-gcc10-opt`)
  - `release`: LCG view release you are targeting (e.g. `LCG_99`)
  - `release-platform`:LCG view release platform string you are targeting (e.g. `LCG_99/x86_64-centos8-gcc10-opt`)
