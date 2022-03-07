@@ -2,6 +2,7 @@
 
 set -e
 
+echo "::group::Launching container"
 echo "Checking if there is a working CVMFS mount"
 
 if [ ! -d "/cvmfs/sft.cern.ch/lcg/" ]; then
@@ -86,6 +87,8 @@ tar czvf /myproject.tgz cov-int
 " > ${GITHUB_WORKSPACE}/coverity_scan.sh
 chmod a+x ${GITHUB_WORKSPACE}/coverity_scan.sh
 
+echo "::endgroup::" # Launch container
+
 echo "#####################################################################"
 echo "###################### Executing Coverity Scan ######################"
 echo "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
@@ -96,6 +99,7 @@ echo "#####################################################################"
 echo "###################### Coverity Scan Compelte #######################"
 echo "#####################################################################"
 
+echo "::group::Upload artifacts"
 echo "Start uploading compilation units for analysis"
 
 docker cp view_worker:/myproject.tgz myproject.tgz
@@ -110,3 +114,4 @@ if [ "$1" != "local" ]; then
 else
   echo "Not submitting to server only test run"
 fi
+echo "::endgroup::"
