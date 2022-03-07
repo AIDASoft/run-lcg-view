@@ -1,6 +1,9 @@
 #!/bin/zsh
 
 set -e
+
+echo "::group::Launching container"
+
 if [ -z "${VIEW_PATH}" ]; then
   echo "Checking if there is a working CVMFS mount"
 
@@ -51,6 +54,8 @@ cd ${GITHUB_WORKSPACE}
 ${RUN}
 " > ${GITHUB_WORKSPACE}/action_payload.sh
 chmod a+x ${GITHUB_WORKSPACE}/action_payload.sh
+
+echo "::endgroup::" # Launch container
 
 echo "####################################################################"
 echo "###################### Executing user payload ######################"

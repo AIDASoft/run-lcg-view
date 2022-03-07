@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+echo "::group::Launching container"
 
 echo "Checking if there is a working CVMFS mount"
 
@@ -61,6 +62,7 @@ else
   echo "Docker image ready for ${SYSTEM}"
 fi
 
+echo "::endgroup::" # Launch container
 
 echo "####################################################################"
 echo "###################### Executing user payload ######################"
