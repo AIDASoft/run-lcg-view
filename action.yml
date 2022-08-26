@@ -73,7 +73,6 @@ runs:
         else
           ${{ github.action_path }}/setup-lcg-view.sh
         fi
-      shell: bash
       env:
         THIS: ${{ github.action_path }}
         CONTAINER: ${{ inputs.container }}
