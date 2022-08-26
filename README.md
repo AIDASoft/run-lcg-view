@@ -1,12 +1,12 @@
 # GitHub Action: aidasoft/run-lcg-view
-![linux](https://github.com/AIDASoft/run-lcg-view/workflows/linux/badge.svg)![macOS](https://github.com/AIDASoft/run-lcg-view/workflows/macOS/badge.svg)![dev3](https://github.com/AIDASoft/run-lcg-view/workflows/dev3/badge.svg)[![coverity](https://github.com/AIDASoft/run-lcg-view/actions/workflows/coverity.yml/badge.svg)](https://github.com/AIDASoft/run-lcg-view/actions/workflows/coverity.yml)
+![linux](https://github.com/AIDASoft/run-lcg-view/workflows/linux/badge.svg)![dev3](https://github.com/AIDASoft/run-lcg-view/workflows/dev3/badge.svg)[![coverity](https://github.com/AIDASoft/run-lcg-view/actions/workflows/coverity.yml/badge.svg)](https://github.com/AIDASoft/run-lcg-view/actions/workflows/coverity.yml)
 
 This GitHub Action executes user payload code inside a LCG view environment, specified by the user.
 
 ## Instructions
 
 ### Prerequisites
-This action depends on the user to call the companion action `uses: cvmfs-contrib/github-action-cvmfs@v2` before using `uses: aidasoft/run-lcg-view@v3`, which will install CVMFS on the node. GitHub Actions currently do not support calling the action `github-action-cvmfs` from within `run-lcg-view`, this needs to be done explicitly by the user.
+This action depends on the user to call the companion action `uses: cvmfs-contrib/github-action-cvmfs@v2` before using `uses: aidasoft/run-lcg-view@v4`, which will install CVMFS on the node. GitHub Actions currently do not support calling the action `github-action-cvmfs` from within `run-lcg-view`, this needs to be done explicitly by the user.
 
 ### Example
 
@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: cvmfs-contrib/github-action-cvmfs@v2
-    - uses: aidasoft/run-lcg-view@v3
+    - uses: aidasoft/run-lcg-view@v4
       with:
         release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
         run: |
@@ -43,25 +43,8 @@ ${RUN} # the multi-line variable specified in the action under run: |
 
 which is executed in the container and thus giving the user an easy and direct access to run arbitrary code on top of LCG views.
 
-
-The Action also works with runners of type `macos-latest`, however in this case it is necessary to specify the repositories you want to mount (via the variable `cvmfs_repositories`), as there is no auto mount for macOS. A minimal example of usage on `macos-latest` is:
-```yaml
-jobs:
-  run-lcg:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: cvmfs-contrib/github-action-cvmfs@v2
-      with:
-        cvmfs_repositories: 'sft.cern.ch,geant4.cern.ch'
-    - uses: aidasoft/run-lcg-view@v3
-      with:
-        release-platform: "LCG_99/x86_64-mac1015-clang120-opt"
-        run: |
-          which ddsim
-          ddsim --help
-```
-Beware that because the runner cannot be rebooted in the macOS case, the repositories are mounted under `/Users/Shared/cvmfs/`. It is also necessary to mount `geant4.cern.ch` in addition to `sft.cern.ch` as the Geant4 data files associated to a view are stored in the Geant4 cvmfs repository.
+#### macOS
+It is currently not possible to mount CVMFS on the github CI machines with macOS.
 
 ### Parameters
 The following parameters are supported:
@@ -82,7 +65,7 @@ There are minimal examples, which are also workflows in this repository in the s
 
 ## Limitations
 
-The action will always resolve the correct image to execute your code on top the requested view, therefore you must always set the top level GitHub Action variable `runs-on: ubuntu-latest`. However this is not the case if you want to execute on macOS, there you have to set this variable to `runs-on: macos-latest`.
+The action will always resolve the correct image to execute your code on top the requested view, therefore you must always set the top level GitHub Action variable `runs-on: ubuntu-latest`.
 
 ## Coverity Scan extension
 ### Prerequisites
@@ -93,7 +76,7 @@ It is also possible to automatize [Coverity Scan](https://scan.coverity.com/) wi
  - Add to the project secrets the Coverity Scan token from your project
 
 ### Example
-You can use this feature from this GitHub Action in a workflow in your own repository with `uses: aidasoft/run-lcg-view@v3`.
+You can use this feature from this GitHub Action in a workflow in your own repository with `uses: aidasoft/run-lcg-view@v4`.
 ```yaml
 jobs:
   run-coverity:
@@ -101,7 +84,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: cvmfs-contrib/github-action-cvmfs@v2
-    - uses: aidasoft/run-lcg-view@v3
+    - uses: aidasoft/run-lcg-view@v4
       with:
         coverity-container: 'ghcr.io/aidasoft/coverity:latest'
         coverity-cmake-command: 'cmake -DCMAKE_CXX_STANDARD=17 ..'
