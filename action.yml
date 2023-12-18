@@ -11,7 +11,7 @@ inputs:
   coverity-container:
     description: 'Location of container that has Coverity Scan installed (default: `ghcr.io/aidasoft/coverity:latest` but not public)'
     required: false
-    default: 'ghcr.io/aidasoft/coverity:latest'
+    default: 'ghcr.io/aidasoft/coverity:el9'
   coverity-cmake-command:
     description: 'CMake command for building your project, assuming in source build'
     required: false
