@@ -56,10 +56,23 @@ inputs:
     description: 'Custom path where the setup script for the view is location'
     required: false
     default: ''
+  ccache-key:
+    description: 'Base key for ccache '
+    required: false
+    default: 'ccache'
 
 runs:
   using: "composite"
   steps:
+    - shell: bash
+      run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+    - uses: actions/cache@v4
+      with:
+        path: ~/.cache/ccache
+        key: ${{ inputs.ccache-key }}-${{ env.NOW }}
+        restore-keys: |
+          ${{ inputs.ccache-key }}
+
     - name: Run payload
       shell: bash
       run: |
