@@ -45,12 +45,22 @@ set -e
 
 source ${VIEW_PATH}/${SETUP_SCRIPT}
 
+export CCACHE_DIR=/root/.cache/ccache
+export CCACHE_SLOPPINESS=include_file_ctime,include_file_mtime
+ccache --set-config=max_size=500M
+ccache -z
+
 ${RUN}
+
+echo ::group::ccache statistics
+ccache -s
+echo ::endgroup::
 " > ${GITHUB_WORKSPACE}/action_payload.sh
+
 chmod a+x ${GITHUB_WORKSPACE}/action_payload.sh
 
 echo "Starting docker image for ${SYSTEM}"
-docker run -it --name view_worker -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} -v /cvmfs:/cvmfs:shared -d ghcr.io/aidasoft/${SYSTEM}:latest /bin/bash
+docker run -it --name view_worker -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} -v /cvmfs:/cvmfs:shared -v ~/.cache/ccache:/root/.cache/ccache -d ghcr.io/aidasoft/${SYSTEM}:latest /bin/bash
 echo "Docker image ready for ${SYSTEM}"
 echo "::endgroup::" # Launch container
 
