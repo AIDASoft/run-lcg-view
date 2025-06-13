@@ -59,8 +59,19 @@ echo ::endgroup::
 
 chmod a+x ${GITHUB_WORKSPACE}/action_payload.sh
 
-echo "Starting docker image for ${SYSTEM}"
-docker run -it --name view_worker -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} -v /cvmfs:/cvmfs:shared -v ~/.cache/ccache:/root/.cache/ccache -d ghcr.io/aidasoft/${SYSTEM}:latest /bin/bash
+declare -A container_args=(
+  [podman]="-d -i"
+  [docker]="-it -d"
+)
+
+echo "Starting docker image for ${SYSTEM} via ${CONTAINER_RUNTIME}"
+${CONTAINER_RUNTIME} run ${container_args[$CONTAINER_RUNTIME]} \
+  --name view_worker \
+  -v "${GITHUB_WORKSPACE}":"${GITHUB_WORKSPACE}" \
+  -v /cvmfs:/cvmfs:shared \
+  -v "${HOME}"/.cache/ccache:/root/.cache/ccache \
+  ghcr.io/aidasoft/"${SYSTEM}":latest \
+  /bin/bash
 echo "Docker image ready for ${SYSTEM}"
 echo "::endgroup::" # Launch container
 
@@ -68,4 +79,4 @@ echo "####################################################################"
 echo "###################### Executing user payload ######################"
 echo "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
 
-docker exec view_worker /bin/bash -c "cd ${GITHUB_WORKSPACE}; ./action_payload.sh"
+${CONTAINER_RUNTIME} exec -it view_worker /bin/bash -c "cd ${GITHUB_WORKSPACE} && ./action_payload.sh"
