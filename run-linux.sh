@@ -59,6 +59,8 @@ echo ::endgroup::
 
 chmod a+x ${GITHUB_WORKSPACE}/action_payload.sh
 
+mkdir -p ${HOME}/.cache/ccache
+
 declare -A container_args=(
   [podman]="-d -i"
   [docker]="-it -d"
