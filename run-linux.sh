@@ -81,4 +81,4 @@ echo "####################################################################"
 echo "###################### Executing user payload ######################"
 echo "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
 
-${CONTAINER_RUNTIME} exec -it view_worker /bin/bash -c "cd ${GITHUB_WORKSPACE} && ./action_payload.sh"
+${CONTAINER_RUNTIME} exec view_worker /bin/bash -c "cd ${GITHUB_WORKSPACE} && ./action_payload.sh"
