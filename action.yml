@@ -60,6 +60,12 @@ inputs:
     description: 'Base key for ccache '
     required: false
     default: 'ccache'
+  container-runtime:
+    description: 'Container runtime to use to launch container (only for linux)'
+    required: false
+    type: choice
+    options: ['docker', 'podman']
+    default: 'docker'
 
 runs:
   using: "composite"
@@ -97,3 +103,4 @@ runs:
         RUN: ${{ inputs.run }}
         SETUP_SCRIPT: ${{ inputs.setup-script }}
         VIEW_PATH: ${{ inputs.view-path }}
+        CONTAINER_RUNTIME: ${{ inputs.container-runtime }}
