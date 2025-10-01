@@ -7,19 +7,19 @@ echo "Checking if there is a working CVMFS mount"
 
 if [ ! -d "/cvmfs/sft.cern.ch/lcg/" ]; then
   echo "The directory /cvmfs/sft.cern.ch/lcg/ cannot be accessed!"
-  echo "Make sure you are using the cvmfs-contrib/github-action-cvmfs@v2 action"
+  echo "Make sure you are using the most recent cvmfs-contrib/github-action-cvmfs version"
   exit 1
 fi
 
 if [ ! -d "/cvmfs/sft-nightlies.cern.ch/lcg/" ]; then
   echo "The directory /cvmfs/sft-nightlies.cern.ch/lcg/ cannot be accessed!"
-  echo "Make sure you are using the cvmfs-contrib/github-action-cvmfs@v2 action"
+  echo "Make sure you are using the most recent cvmfs-contrib/github-action-cvmfs version"
   exit 1
 fi
 
 if [ ! -d "/cvmfs/geant4.cern.ch/share/" ]; then
   echo "The directory /cvmfs/geant4.cern.ch/share/ cannot be accessed!"
-  echo "Make sure you are using the cvmfs-contrib/github-action-cvmfs@v2 action"
+  echo "Make sure you are using the most recent cvmfs-contrib/github-action-cvmfs version"
   exit 1
 fi
 
