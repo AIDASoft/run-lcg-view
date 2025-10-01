@@ -9,7 +9,7 @@ if [ -z "${VIEW_PATH}" ]; then
 
   if [ ! -d "/Users/Shared/cvmfs/sft.cern.ch/lcg/" ]; then
     echo "The directory /Users/Shared/cvmfs/sft.cern.ch/lcg cannot be accessed!"
-    echo "Make sure you are using the cvmfs-contrib/github-action-cvmfs@v2 action"
+    echo "Make sure you are using the most recent cvmfs-contrib/github-action-cvmfs version"
     echo "and that you have set cvmfs_repositories: 'sft.cern.ch,geant4.cern.ch'."
     echo "There is no automout on macOS."
     exit 1
@@ -17,7 +17,7 @@ if [ -z "${VIEW_PATH}" ]; then
 
   if [ ! -d "/Users/Shared/cvmfs/geant4.cern.ch/share/" ]; then
     echo "The directory /Users/Shared/cvmfs/geant4.cern.ch/share/ cannot be accessed!"
-    echo "Make sure you are using the cvmfs-contrib/github-action-cvmfs@v2 action"
+    echo "Make sure you are using the most recent cvmfs-contrib/github-action-cvmfs version"
     echo "and that you have set cvmfs_repositories: 'sft.cern.ch,geant4.cern.ch'."
     echo "There is no automout on macOS."
     exit 1

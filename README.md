@@ -6,7 +6,7 @@ This GitHub Action executes user payload code inside a LCG view environment, spe
 ## Instructions
 
 ### Prerequisites
-This action depends on the user to call the companion action `uses: cvmfs-contrib/github-action-cvmfs@v2` before using `uses: aidasoft/run-lcg-view@v4`, which will install CVMFS on the node. GitHub Actions currently do not support calling the action `github-action-cvmfs` from within `run-lcg-view`, this needs to be done explicitly by the user.
+This action depends on the user to call the companion action `uses: cvmfs-contrib/github-action-cvmfs@v2` (or a more recent version) before using `uses: aidasoft/run-lcg-view@v4`, which will install CVMFS on the node. GitHub Actions currently do not support calling the action `github-action-cvmfs` from within `run-lcg-view`, this needs to be done explicitly by the user.
 
 ### Example
 
