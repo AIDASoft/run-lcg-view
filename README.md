@@ -18,9 +18,9 @@ jobs:
   run-lcg:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cvmfs-contrib/github-action-cvmfs@v2
-    - uses: aidasoft/run-lcg-view@v4
+    - uses: actions/checkout@deadbeaf1234
+    - uses: cvmfs-contrib/github-action-cvmfs@deadbeaf5678
+    - uses: aidasoft/run-lcg-view@deadbeaf9999
       with:
         release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
         run: |
@@ -81,9 +81,9 @@ jobs:
   run-coverity:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cvmfs-contrib/github-action-cvmfs@v2
-    - uses: aidasoft/run-lcg-view@v4
+    - uses: actions/checkout@deadbeaf1234
+    - uses: cvmfs-contrib/github-action-cvmfs@deadbeaf5678
+    - uses: aidasoft/run-lcg-view@deadbeaf9999
       with:
         coverity-container: 'ghcr.io/aidasoft/coverity:latest'
         coverity-cmake-command: 'cmake -DCMAKE_CXX_STANDARD=17 ..'
