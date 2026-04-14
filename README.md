@@ -12,21 +12,10 @@ This action depends on the user to call the companion action `uses: cvmfs-contri
 
 You can use this GitHub Action in a workflow in your own repository with `uses: aidasoft/`.
 
-A minimal job example for GitHub-hosted runners of type `ubuntu-latest`:
-```yaml
-jobs:
-  run-lcg:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@deadbeaf1234
-    - uses: cvmfs-contrib/github-action-cvmfs@deadbeaf5678
-    - uses: aidasoft/run-lcg-view@deadbeaf9999
-      with:
-        release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
-        run: |
-          gcc --version
-          which gcc
-```
+A minimal job example for GitHub-hosted runners of type `ubuntu-latest` is part of this repository's actions:
+
+https://github.com/AIDASoft/run-lcg-view/blob/master/.github/workflows/basic.yml#L7-L15
+
 In this case the action will automatically resolve the correct container image (in this case `centos7`) and spawn an instance with Docker from GitHub Container Registry or with Singularity from `/cvmfs/unpacked.cern.ch/`. The `Dockerfile` for the supported images can be found in the [AIDASoft/management](https://github.com/AIDASoft/management) repository.
 
 The action mounts the checkout directory into the mentioned container and wraps the variable `run` in the script:
@@ -76,22 +65,9 @@ It is also possible to automatize [Coverity Scan](https://scan.coverity.com/) wi
 
 ### Example
 You can use this feature from this GitHub Action in a workflow in your own repository with `uses: aidasoft/run-lcg-view@v4`.
-```yaml
-jobs:
-  run-coverity:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@deadbeaf1234
-    - uses: cvmfs-contrib/github-action-cvmfs@deadbeaf5678
-    - uses: aidasoft/run-lcg-view@deadbeaf9999
-      with:
-        coverity-container: 'ghcr.io/aidasoft/coverity:latest'
-        coverity-cmake-command: 'cmake -DCMAKE_CXX_STANDARD=17 ..'
-        coverity-project: 'AIDASoft%2Fpodio'
-        coverity-project-token: ${{ secrets.PODIO_COVERITY_TOKEN }}
-        github-pat: ${{ secrets.READ_COVERITY_IMAGE }}
-        release-platform: "LCG_99/x86_64-centos7-gcc10-opt"
-```
+
+https://github.com/AIDASoft/run-lcg-view/blob/main/.github/workflows/coverity.yml#L7-L71
+
 The user needs to take care that the `release-platform` is compatible with the `coverity-container`.
 
 The action mounts the checkout directory into the selected container and wraps the variable `coverity-cmake-command` in the script:
