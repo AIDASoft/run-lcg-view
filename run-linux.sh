@@ -52,6 +52,12 @@ ccache -z
 
 ${RUN}
 
+if [ -n \"${CCACHE_MAX_AGE}\" ]; then
+  echo ::group::ccache eviction
+  ccache --evict-older-than ${CCACHE_MAX_AGE} || echo \"WARNING: ccache eviction failed (requires ccache >= 4.4)\"
+  echo ::endgroup::
+fi
+
 echo ::group::ccache statistics
 ccache -s
 echo ::endgroup::

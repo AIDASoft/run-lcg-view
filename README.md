@@ -43,7 +43,15 @@ The following parameters are supported:
  - `release-platform`:LCG view release platform string you are targeting (e.g. `LCG_99/x86_64-centos8-gcc10-opt`)
  - `run`: They payload code you want to execute on top of the view
  - `setup-script`: Initialization/Setup script for a view that sets the environment (e.g. `setup.sh`)
+ - `ccache-key`: Base key for the ccache cache. Use a distinct key per build configuration (default: `ccache`)
+ - `ccache-save`: When to save the ccache cache: `auto` (only for non `pull_request` events), `true` (always) or `false` (never) (default: `auto`)
+ - `ccache-max-age`: If set, evict ccache entries older than this (e.g. `7d`) before saving the cache. Requires ccache >= 4.4 in the container (default: unset)
  - `view-path`: Path where the setup script for the custom view is location. By specifying this variable the auto-resolving of the view based on `release` and `platform` is disabled. Furthermore the full path has to contain the architecture of the build in the form `/dir1/dir2/x86_64-{arch}-gcc../dir4/dir5`. The system will try to resolve the docker container equal to the string `{arch}` (the string after `x86_64-`).
+
+### Caching of build artifacts
+On linux, the action restores and saves `~/.cache/ccache` (mounted into the container as `CCACHE_DIR`) with the GitHub cache, using the key `<ccache-key>-<date>` and falling back to the most recent `<ccache-key>-*` entry. To use it, build with e.g. `-DCMAKE_CXX_COMPILER_LAUNCHER=ccache`.
+
+Pull requests can only restore caches created on their own ref or on the base branch, so caches saved by a pull request are never used by other pull requests. They do, however, count towards the repository cache quota and can evict the more useful caches from the default branch. Hence, with the default `ccache-save: auto` caches are only saved for non pull request events (e.g. `push`, `schedule`, `workflow_dispatch`). To keep fresh caches available for pull requests, it is recommended to also run the workflows on a daily `schedule` on the default branch.
 
 Please be aware that you must use the combination of parameters `release` and `platform` together or use just the variable `release-platform` alone. These two options are given to enable more flexibility for the user to form their workflow with matrix expressions.
 

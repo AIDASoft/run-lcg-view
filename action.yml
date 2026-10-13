@@ -60,6 +60,14 @@ inputs:
     description: 'Base key for ccache '
     required: false
     default: 'ccache'
+  ccache-save:
+    description: 'When to save the ccache: `auto` (only for non pull_request events), `true` (always) or `false` (never) (default: `auto`)'
+    required: false
+    default: 'auto'
+  ccache-max-age:
+    description: 'If set, evict ccache entries older than this before saving the cache (e.g. `7d`, requires ccache >= 4.4)'
+    required: false
+    default: ''
   container-runtime:
     description: 'Container runtime to use to launch container (only for linux)'
     required: false
@@ -70,14 +78,45 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - shell: bash
-      run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+    - name: Configure ccache caching
+      id: ccache-config
+      shell: bash
+      run: |
+        echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        # ccache is only used in the linux (non coverity) container
+        if [ "${RUNNER_OS}" == "Linux" ] && [ -z "${COVERITY_PROJECT_TOKEN}" ]; then
+          echo "enabled=true" >> $GITHUB_OUTPUT
+        else
+          echo "enabled=false" >> $GITHUB_OUTPUT
+        fi
+        case "${CCACHE_SAVE}" in
+          auto)
+            if [[ "${GITHUB_EVENT_NAME}" == pull_request* ]]; then
+              echo "save=false" >> $GITHUB_OUTPUT
+            else
+              echo "save=true" >> $GITHUB_OUTPUT
+            fi
+            ;;
+          true|false)
+            echo "save=${CCACHE_SAVE}" >> $GITHUB_OUTPUT
+            ;;
+          *)
+            echo "Invalid value for ccache-save: '${CCACHE_SAVE}' (expected auto, true or false)"
+            exit 1
+            ;;
+        esac
+      env:
+        CCACHE_SAVE: ${{ inputs.ccache-save }}
+        COVERITY_PROJECT_TOKEN: ${{ inputs.coverity-project-token }}
+
+    - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      id: ccache-restore
+      if: steps.ccache-config.outputs.enabled == 'true'
       with:
         path: ~/.cache/ccache
         key: ${{ inputs.ccache-key }}-${{ env.NOW }}
         restore-keys: |
-          ${{ inputs.ccache-key }}
+          ${{ inputs.ccache-key }}-
 
     - name: Run payload
       shell: bash
@@ -104,3 +143,14 @@ runs:
         SETUP_SCRIPT: ${{ inputs.setup-script }}
         VIEW_PATH: ${{ inputs.view-path }}
         CONTAINER_RUNTIME: ${{ inputs.container-runtime }}
+        CCACHE_MAX_AGE: ${{ inputs.ccache-max-age }}
+
+    - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      if: >-
+        ${{ !cancelled()
+            && steps.ccache-config.outputs.enabled == 'true'
+            && steps.ccache-config.outputs.save == 'true'
+            && steps.ccache-restore.outputs.cache-hit != 'true' }}
+      with:
+        path: ~/.cache/ccache
+        key: ${{ steps.ccache-restore.outputs.cache-primary-key }}
